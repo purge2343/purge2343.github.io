@@ -10,44 +10,56 @@
             theme: {
                 extend: {
                     colors: {
+                        'apple-gray': '#1d1d1f',
+                        'apple-light': '#f5f5f7',
+                        'apple-blue': '#007aff',
                         'nvidia-green': '#76b900',
-                        'nvidia-dark': '#0d1117',
-                        'nvidia-gray': '#1f2937',
-                        'nvidia-light': '#9ca3af',
-                        'nvidia-accent': '#00ff88',
-                        'nvidia-secondary': '#1a2332'
+                        'fusion-dark': '#0a0a0b',
+                        'fusion-gray': '#1c1c1e',
+                        'fusion-light': '#8e8e93',
+                        'fusion-accent': '#30d158',
+                        'fusion-secondary': '#2c2c2e'
                     },
                     fontFamily: {
-                        'tech': ['Orbitron', 'monospace'],
-                        'body': ['Inter', 'sans-serif']
+                        'apple': ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'sans-serif'],
+                        'body': ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'sans-serif']
                     },
                     backgroundImage: {
-                        'gradient-nvidia': 'linear-gradient(135deg, #0d1117 0%, #1a2332 50%, #1f2937 100%)',
-                        'gradient-accent': 'linear-gradient(90deg, #76b900 0%, #00ff88 100%)'
+                        'gradient-fusion': 'linear-gradient(135deg, #0a0a0b 0%, #1c1c1e 50%, #2c2c2e 100%)',
+                        'gradient-accent': 'linear-gradient(90deg, #30d158 0%, #76b900 100%)',
+                        'gradient-glass': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)'
                     },
                     animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                        'slide-up': 'slideUp 0.8s ease-out',
-                        'fade-in': 'fadeIn 1s ease-out'
+                        'float': 'float 6s ease-in-out infinite',
+                        'subtle-glow': 'subtleGlow 3s ease-in-out infinite alternate',
+                        'slide-up': 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                        'fade-in': 'fadeIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                        'scale-up': 'scaleUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' }
+                            '50%': { transform: 'translateY(-5px)' }
                         },
-                        glow: {
-                            'from': { boxShadow: '0 0 20px #76b900' },
-                            'to': { boxShadow: '0 0 30px #00ff88, 0 0 40px #76b900' }
+                        subtleGlow: {
+                            'from': { boxShadow: '0 0 10px rgba(48, 209, 88, 0.2)' },
+                            'to': { boxShadow: '0 0 20px rgba(48, 209, 88, 0.4), 0 0 30px rgba(118, 185, 0, 0.2)' }
                         },
                         slideUp: {
-                            'from': { transform: 'translateY(50px)', opacity: '0' },
+                            'from': { transform: 'translateY(30px)', opacity: '0' },
                             'to': { transform: 'translateY(0)', opacity: '1' }
                         },
                         fadeIn: {
                             'from': { opacity: '0' },
                             'to': { opacity: '1' }
+                        },
+                        scaleUp: {
+                            'from': { transform: 'scale(0.95)' },
+                            'to': { transform: 'scale(1)' }
                         }
+                    },
+                    backdropBlur: {
+                        'apple': '20px'
                     }
                 }
             }
@@ -55,48 +67,59 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        .matrix-bg {
+        .fusion-bg {
             background-image: 
-                radial-gradient(circle at 25% 25%, #76b900 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, #00ff88 0%, transparent 50%);
-            background-size: 100px 100px;
-            animation: matrix 20s linear infinite;
+                radial-gradient(circle at 20% 80%, rgba(48, 209, 88, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 185, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 122, 255, 0.05) 0%, transparent 50%);
+            background-size: 150px 150px, 200px 200px, 300px 300px;
+            animation: subtleFloat 30s ease-in-out infinite;
         }
         
-        @keyframes matrix {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
+        @keyframes subtleFloat {
+            0%, 100% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+            50% { background-position: 100% 100%, -100% -100%, 50% 50%; }
         }
         
-        .tech-border {
-            border: 1px solid;
-            border-image: linear-gradient(45deg, #76b900, #00ff88, #76b900) 1;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        .hover-glow:hover {
-            box-shadow: 0 0 30px rgba(118, 185, 0, 0.5);
-            transform: translateY(-2px);
-            transition: all 0.3s ease;
+        .apple-hover:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .fusion-border {
+            border: 1px solid rgba(48, 209, 88, 0.3);
+        }
+        
+        .fusion-border:hover {
+            border: 1px solid rgba(48, 209, 88, 0.6);
         }
     </style>
 </head>
-<body class="bg-nvidia-dark text-white font-body overflow-x-hidden">
+<body class="bg-fusion-dark text-white font-body overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-nvidia-dark/90 backdrop-blur-sm border-b border-nvidia-green/30">
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/10">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="text-2xl font-tech font-bold text-nvidia-green">
-                    PS<span class="text-nvidia-accent">.</span>
+                <div class="text-2xl font-apple font-semibold text-fusion-accent">
+                    PS<span class="text-apple-blue">.</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="hover:text-nvidia-green transition-colors duration-300">Home</a>
-                    <a href="#about" class="hover:text-nvidia-green transition-colors duration-300">About</a>
-                    <a href="#contact" class="hover:text-nvidia-green transition-colors duration-300">Contact</a>
+                    <a href="#home" class="hover:text-fusion-accent transition-colors duration-300 font-medium">Home</a>
+                    <a href="#about" class="hover:text-fusion-accent transition-colors duration-300 font-medium">About</a>
+                    <a href="#contact" class="hover:text-fusion-accent transition-colors duration-300 font-medium">Contact</a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-nvidia-green hover:text-nvidia-accent">
+                    <button class="text-fusion-accent hover:text-apple-blue">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -107,90 +130,90 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative matrix-bg">
-        <div class="absolute inset-0 bg-nvidia-dark/70"></div>
+    <section id="home" class="min-h-screen flex items-center justify-center relative fusion-bg">
+        <div class="absolute inset-0 bg-fusion-dark/60"></div>
         <div class="container mx-auto px-6 text-center relative z-10 animate-fade-in">
-            <div class="max-w-4xl mx-auto">
-                <div class="mb-8 animate-slide-up">
+            <div class="max-w-5xl mx-auto">
+                <div class="mb-12 animate-slide-up">
                     <img src="prince-schwartz-profile.jpg" alt="Prince Schwartz" 
-                         class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-nvidia-green/30 hover:border-nvidia-accent/50 transition-all duration-300 hover:scale-105">
+                         class="w-36 h-36 md:w-48 md:h-48 rounded-full mx-auto border-2 border-fusion-accent/40 hover:border-fusion-accent/80 transition-all duration-500 hover:scale-105 apple-hover shadow-2xl">
                 </div>
-                <h1 class="text-6xl md:text-8xl font-tech font-black mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-                    Prince<span class="text-nvidia-green">.</span>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-apple font-black mb-8 animate-slide-up tracking-tight" style="animation-delay: 0.1s;">
+                    Prince<span class="text-fusion-accent">.</span>
                     <br>
                     <span class="bg-gradient-accent bg-clip-text text-transparent">Schwartz</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-nvidia-light mb-8 animate-slide-up" style="animation-delay: 0.2s;">
-                    Sr. Silicon Design Engineer | AMD
+                <p class="text-xl md:text-2xl lg:text-3xl text-fusion-light mb-12 animate-slide-up font-medium" style="animation-delay: 0.2s;">
+                    Sr. Silicon Design Engineer<span class="text-fusion-accent"> • </span>AMD
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.4s;">
-                    <button class="px-8 py-4 bg-gradient-accent text-nvidia-dark font-semibold rounded-lg hover-glow tech-border">
-                        View My Work
-                    </button>
-                    <button class="px-8 py-4 border-2 border-nvidia-green text-nvidia-green rounded-lg hover:bg-nvidia-green hover:text-nvidia-dark transition-all duration-300">
-                        Get In Touch
-                    </button>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" style="animation-delay: 0.4s;">
+                    <a href="#about" class="px-10 py-4 bg-gradient-accent text-fusion-dark font-semibold rounded-full apple-hover shadow-lg">
+                        Explore My Work
+                    </a>
+                    <a href="#contact" class="px-10 py-4 glass-card text-fusion-accent rounded-full apple-hover border border-fusion-accent/30 hover:border-fusion-accent/60">
+                        Connect
+                    </a>
                 </div>
             </div>
         </div>
         
         <!-- Floating Elements -->
-        <div class="absolute top-20 left-10 w-4 h-4 bg-nvidia-green rounded-full animate-float opacity-60"></div>
-        <div class="absolute top-40 right-20 w-6 h-6 bg-nvidia-accent rounded-full animate-float opacity-40" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-32 left-1/4 w-3 h-3 bg-nvidia-green rounded-full animate-float opacity-80" style="animation-delay: 2s;"></div>
+        <div class="absolute top-20 left-10 w-3 h-3 bg-fusion-accent rounded-full animate-float opacity-40"></div>
+        <div class="absolute top-40 right-20 w-4 h-4 bg-apple-blue rounded-full animate-float opacity-30" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-32 left-1/4 w-2 h-2 bg-fusion-accent rounded-full animate-float opacity-50" style="animation-delay: 2s;"></div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-nvidia-secondary">
+    <section id="about" class="py-24 bg-fusion-gray">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl md:text-6xl font-tech font-bold text-center mb-16">
-                    About<span class="text-nvidia-green">.</span>
+                <h2 class="text-4xl md:text-6xl font-apple font-bold text-center mb-20 tracking-tight">
+                    About<span class="text-fusion-accent">.</span>
                 </h2>
                 
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <p class="text-lg text-nvidia-light leading-relaxed">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <p class="text-lg text-fusion-light leading-relaxed font-medium">
                             Currently serving as Sr. Silicon Design Engineer at AMD, specializing in serializer 
                             and deserializer for TX circuits, LEC for logical circuits, and timing circuits 
                             for TX blocks in high-performance computing applications.
                         </p>
-                        <p class="text-lg text-nvidia-light leading-relaxed">
+                        <p class="text-lg text-fusion-light leading-relaxed font-medium">
                             With 5+ years of experience in semiconductor design, my career spans leading companies 
                             including AMD, Rambus, and Qualcomm. Previously designed analog/mixed signal IPs for 
                             LPDDR5 high-speed circuits in 7/5/4nm FINFET CMOS technology, focusing on rx/tx design, 
                             verification, validation, and post-silicon debug.
                         </p>
-                        <p class="text-lg text-nvidia-light leading-relaxed">
+                        <p class="text-lg text-fusion-light leading-relaxed font-medium">
                             I hold a Master's degree in Electrical Engineering from Arizona State University with 
                             expertise in mixed signal design, Python programming, and machine learning applications 
                             in semiconductor automation and validation.
                         </p>
-                        <div class="grid grid-cols-2 gap-4 pt-6">
-                            <div class="text-center p-4 tech-border rounded-lg hover-glow">
-                                <div class="text-2xl font-tech font-bold text-nvidia-green">5+</div>
-                                <div class="text-sm text-nvidia-light">Years Experience</div>
+                        <div class="grid grid-cols-2 gap-6 pt-8">
+                            <div class="text-center p-6 glass-card rounded-2xl apple-hover">
+                                <div class="text-3xl font-apple font-bold text-fusion-accent mb-2">5+</div>
+                                <div class="text-sm text-fusion-light font-medium">Years Experience</div>
                             </div>
-                            <div class="text-center p-4 tech-border rounded-lg hover-glow">
-                                <div class="text-2xl font-tech font-bold text-nvidia-accent">3</div>
-                                <div class="text-sm text-nvidia-light">Top Companies</div>
+                            <div class="text-center p-6 glass-card rounded-2xl apple-hover">
+                                <div class="text-3xl font-apple font-bold text-apple-blue mb-2">3</div>
+                                <div class="text-sm text-fusion-light font-medium">Top Companies</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="space-y-6">
-                        <div class="grid grid-cols-1 gap-4">
-                            <div class="p-6 bg-nvidia-dark rounded-lg tech-border hover-glow">
-                                <h3 class="text-xl font-tech font-bold text-nvidia-green mb-3">High-Speed Design</h3>
-                                <p class="text-nvidia-light">SerDes, TX/RX Circuits, DDR PHY, LPDDR5, Timing Circuits</p>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="p-8 glass-card rounded-2xl apple-hover fusion-border">
+                                <h3 class="text-xl font-apple font-bold text-fusion-accent mb-4">High-Speed Design</h3>
+                                <p class="text-fusion-light font-medium">SerDes, TX/RX Circuits, DDR PHY, LPDDR5, Timing Circuits</p>
                             </div>
-                            <div class="p-6 bg-nvidia-dark rounded-lg tech-border hover-glow">
-                                <h3 class="text-xl font-tech font-bold text-nvidia-green mb-3">Analog/Mixed Signal</h3>
-                                <p class="text-nvidia-light">16-bit DAC, Op-Amp, Comparator, Charge Pump, LEC</p>
+                            <div class="p-8 glass-card rounded-2xl apple-hover fusion-border">
+                                <h3 class="text-xl font-apple font-bold text-fusion-accent mb-4">Analog/Mixed Signal</h3>
+                                <p class="text-fusion-light font-medium">16-bit DAC, Op-Amp, Comparator, Charge Pump, LEC</p>
                             </div>
-                            <div class="p-6 bg-nvidia-dark rounded-lg tech-border hover-glow">
-                                <h3 class="text-xl font-tech font-bold text-nvidia-green mb-3">Tools & Technology</h3>
-                                <p class="text-nvidia-light">Cadence Virtuoso, ADE-XL, Python, 7/5/4nm FINFET</p>
+                            <div class="p-8 glass-card rounded-2xl apple-hover fusion-border">
+                                <h3 class="text-xl font-apple font-bold text-fusion-accent mb-4">Tools & Technology</h3>
+                                <p class="text-fusion-light font-medium">Cadence Virtuoso, ADE-XL, Python, 7/5/4nm FINFET</p>
                             </div>
                         </div>
                     </div>
@@ -201,27 +224,27 @@
 
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-nvidia-secondary">
+    <section id="contact" class="py-24 bg-fusion-secondary">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl md:text-6xl font-tech font-bold mb-8">
-                    Contact<span class="text-nvidia-green">.</span>
+                <h2 class="text-4xl md:text-6xl font-apple font-bold mb-12 tracking-tight">
+                    Contact<span class="text-fusion-accent">.</span>
                 </h2>
-                <p class="text-xl text-nvidia-light mb-12">
+                <p class="text-xl text-fusion-light mb-16 font-medium">
                     Ready to collaborate on something extraordinary?
                 </p>
                 
-                <div class="max-w-md mx-auto">
-                    <div class="bg-nvidia-dark p-8 rounded-lg tech-border text-center">
-                        <div class="w-20 h-20 bg-nvidia-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <span class="text-4xl text-nvidia-accent">💼</span>
+                <div class="max-w-lg mx-auto">
+                    <div class="glass-card p-12 rounded-3xl text-center apple-hover">
+                        <div class="w-24 h-24 bg-fusion-accent/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                            <span class="text-5xl text-fusion-accent">💼</span>
                         </div>
-                        <h3 class="text-2xl font-tech font-bold text-nvidia-green mb-4">Let's Connect</h3>
-                        <p class="text-nvidia-light mb-6">
+                        <h3 class="text-2xl font-apple font-bold text-fusion-accent mb-6">Let's Connect</h3>
+                        <p class="text-fusion-light mb-10 font-medium leading-relaxed">
                             Ready to discuss opportunities or collaborate? Let's connect on LinkedIn.
                         </p>
                         <a href="https://www.linkedin.com/in/prince-schwartz-wilfred/" target="_blank" 
-                           class="inline-block px-8 py-4 bg-gradient-accent text-nvidia-dark font-semibold rounded-lg hover-glow tech-border">
+                           class="inline-block px-10 py-4 bg-gradient-accent text-fusion-dark font-semibold rounded-full apple-hover shadow-lg">
                             Message me on LinkedIn
                         </a>
                     </div>
@@ -231,10 +254,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 bg-nvidia-dark border-t border-nvidia-gray">
+    <footer class="py-12 bg-fusion-dark border-t border-white/10">
         <div class="container mx-auto px-6 text-center">
-            <div class="text-nvidia-light">
-                © 2024 Prince Schwartz. Powered by Innovation.
+            <div class="text-fusion-light font-medium">
+                © 2024 Prince Schwartz. Crafted with precision.
             </div>
         </div>
     </footer>
